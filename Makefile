@@ -21,6 +21,18 @@ $(NAME): $(obj)
 helgrind: all
 	valgrind --tool=helgrind ./$(NAME)
 
+test1: all
+	./$(NAME) 1 800 200 200
+
+test2: all
+	./$(NAME) 5 800 200 200
+
+test3: all
+	./$(NAME) 4 410 200 200
+
+test4: all
+	./$(NAME) 4 310 200 100
+
 valgrind: all
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) 50 300 200 200
 
