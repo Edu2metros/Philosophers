@@ -6,7 +6,7 @@
 /*   By: eddos-sa <eddos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 13:38:03 by eddos-sa          #+#    #+#             */
-/*   Updated: 2024/03/30 13:51:10 by eddos-sa         ###   ########.fr       */
+/*   Updated: 2024/03/30 16:46:48 by eddos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,54 @@ int	big_brother_check(struct timeval old_time, int philo_id)
 	return (philo()->died);
 }
 
-
-void threads(void *arg)
+void	threads(void *arg)
 {
-    int *philo_id;
-    
+	int				philo_id;
+	int				left_fork;
+	int				right_fork;
+	struct timeval	current_time;
+
+	philo_id = *(int *)arg;
+	philo()->thread[philo_id].philo_id = philo_id;
+	gettimeofday(&current_time, NULL);
+	philo()->thread[philo_id].old_time = current_time;
+	left_fork = philo_id;
+	right_fork = (philo_id + 1) % philo()->number_philo;
+	while (1)
+	{
+		pthread_mutex_lock(&philo()->mutex);
+		if (philo()->number_philo == 1)
+		{
+			printf("%d has taken a fork\n", philo_id);
+			pthread_mutex_unlock(&philo()->mutex);
+			printf("\x1b[31m%d MMORREU AHHAHA\x1b[0m\n", philo_id);
+			philo()->died = 1;
+			break ;
+		}
+		else if (philo()->forks[left_fork] == 0
+			&& philo()->forks[right_fork] == 0
+			&& philo()->thread[philo_id].eat == 0)
+		{
+			philo()->forks[left_fork] = 1;
+			philo()->forks[right_fork] = 1;
+			printf("%d has taken a fork\n", philo_id);
+			pthread_mutex_unlock(&philo()->mutex);
+			gettimeofday(&current_time, NULL);
+			printf("%d is eating\n", philo_id);
+			usleep(philo()->time_eat * 1000);
+			pthread_mutex_lock(&philo()->mutex);
+			philo()->forks[left_fork] = 0;
+			philo()->forks[right_fork] = 0;
+			pthread_mutex_unlock(&philo()->mutex);
+			printf("%d is sleeping\n", philo_id);
+			usleep(philo()->time_sleep * 1000);
+		}
+		else
+		{
+			pthread_mutex_unlock(&philo()->mutex);
+			usleep(100);
+		}
+	}
 }
 
 /* void	threads(void *arg)

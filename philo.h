@@ -6,7 +6,7 @@
 /*   By: eddos-sa <eddos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:49:35 by eddos-sa          #+#    #+#             */
-/*   Updated: 2024/03/30 13:38:44 by eddos-sa         ###   ########.fr       */
+/*   Updated: 2024/03/30 16:38:14 by eddos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef struct s_philo
 {
 	pthread_mutex_t	mutex;
+	t_thread		*thread;
 	int				number_philo;
 	int				time_die;
 	int				time_eat;
@@ -31,6 +32,13 @@ typedef struct s_philo
 	int				*forks;
 	int				died;
 }					t_philo;
+
+typedef struct s_thread
+{
+	int				philo_id;
+	int				eat;
+	struct timeval	old_time;
+}					t_thread;
 
 t_philo				*philo(void);
 
