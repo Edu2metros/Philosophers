@@ -6,7 +6,7 @@
 /*   By: eddos-sa <eddos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 13:38:03 by eddos-sa          #+#    #+#             */
-/*   Updated: 2024/03/30 13:39:55 by eddos-sa         ###   ########.fr       */
+/*   Updated: 2024/03/30 13:51:10 by eddos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,14 @@ int	big_brother_check(struct timeval old_time, int philo_id)
 	return (philo()->died);
 }
 
-void	threads(void *arg)
+
+void threads(void *arg)
+{
+    int *philo_id;
+    
+}
+
+/* void	threads(void *arg)
 {
 	int				*thread_id;
 	int				philo_id;
@@ -81,4 +88,4 @@ void	threads(void *arg)
 			break ;
 		}
 	}
-}
+} */
