@@ -2,7 +2,7 @@ OBJ_DIR := obj/
 
 NAME = philo
 
-src := main.c utils.c
+src := main.c utils.c check_args.c threads.c
 obj := $(src:%.c=$(OBJ_DIR)%.o)
 
 CC = cc
@@ -19,7 +19,7 @@ $(NAME): $(obj)
 	$(CC) $(FLAGS) $^ -o $@
 
 helgrind: all
-	valgrind --tool=helgrind ./$(NAME)
+	clear; valgrind --tool=helgrind ./$(NAME) 4 310 200 100
 
 test1: all
 	./$(NAME) 1 800 200 200
@@ -31,7 +31,7 @@ test3: all
 	./$(NAME) 4 410 200 200
 
 test4: all
-	./$(NAME) 4 310 200 100
+	clear; ./$(NAME) 4 310 200 100
 
 valgrind: all
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) 50 300 200 200
