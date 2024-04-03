@@ -6,20 +6,41 @@
 /*   By: eddos-sa <eddos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:37:43 by eddos-sa          #+#    #+#             */
-/*   Updated: 2024/03/30 16:40:19 by eddos-sa         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:08:03 by eddos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	setup_forks(void)
+void	setup_forks(t_philo *philo)
 {
 	int	i;
 
 	i = 0;
-	while (i < philo()->number_philo)
+	while (i < philo->number_philo)
 	{
-		philo()->forks[i] = 0;
+		philo->forks[i] = 0;
+		i++;
+	}
+}
+
+void setup_time(t_philo *philo)
+{
+    struct timeval current_time;
+    gettimeofday(&current_time, NULL);
+    philo->time = (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
+}
+
+void setup_mutex(t_philo *philo)
+{
+	int i;
+	
+	i = 0;
+	philo->fork_mx = malloc(sizeof(pthread_mutex_t) * philo->number_philo);
+	
+	while (i < philo->number_philo)
+	{
+		pthread_mutex_init(&philo->fork_mx[i], NULL);
 		i++;
 	}
 }
@@ -39,7 +60,10 @@ void	init(char **argv)
 		philo()->number_philo_must_eat = ft_atoi(argv[5]);
 	else
 		philo()->number_philo_must_eat = -1;
-	setup_forks();
+	pthread_mutex_init(&philo()->mutex, NULL);
+	setup_forks(philo());
+	setup_time(philo());
+	setup_mutex(philo());
 }
 
 void	*ft_malloc(size_t size)
@@ -77,11 +101,10 @@ void	philosophers(void)
 	int			i;
 	int			j;
 
-	thread = ft_malloc(philo()->number_philo * sizeof(pthread_t));
-	thread_id = ft_malloc(philo()->number_philo * sizeof(int));
-	philo_struct = ft_malloc(philo()->number_philo * sizeof(t_thread));
+	thread = malloc(philo()->number_philo * sizeof(pthread_t));
+	thread_id = malloc(philo()->number_philo * sizeof(int));
+	philo_struct = malloc(philo()->number_philo * sizeof(t_thread));
 	setup_eat(philo_struct);
-	pthread_mutex_init(&philo()->mutex, NULL);
 	i = 0;
 	while (i < philo()->number_philo && philo()->died != 1)
 	{
@@ -89,6 +112,7 @@ void	philosophers(void)
 		pthread_create(&thread[i], NULL, threads, &thread_id[i]);
 		i++;
 	}
+	big_brother();
 	j = 0;
 	while (j < philo()->number_philo)
 	{
