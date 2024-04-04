@@ -2,7 +2,7 @@ OBJ_DIR := obj/
 
 NAME = philo
 
-src := main.c utils.c check_args.c threads.c
+src := main.c check_args.c
 obj := $(src:%.c=$(OBJ_DIR)%.o)
 
 CC = cc
