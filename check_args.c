@@ -1,9 +1,9 @@
 #include "philo.h"
 
-int	ft_atoi(const char *str)
+long	ft_atol(const char *str)
 {
-	int	sign;
-	int	result;
+	int		sign;
+	long	result;
 
 	sign = 1;
 	result = 0;
@@ -24,9 +24,9 @@ int	ft_atoi(const char *str)
 	return (result * sign);
 }
 
-int ft_isdigit(char c)
+int	ft_isdigit(char c)
 {
-	return(c >= '0' && c <= '9');
+	return (c >= '0' && c <= '9');
 }
 
 int	is_all_digit(char **argv)
@@ -49,18 +49,18 @@ int	is_all_digit(char **argv)
 	return (1);
 }
 
-
-int negative_numbers(char **argv)
+int	limit_numbers(char **argv)
 {
-    int i;
-    i = 1;
-    while(argv[i] != NULL)
-    {
-        if(ft_atoi(argv[i]) <= 0)
-            return(0);
-        i++;
-    }
-    return(1);
+	int	i;
+
+	i = 1;
+	while (argv[i] != NULL)
+	{
+		if (ft_atol(argv[i]) <= 0 || ft_atol(argv[i]) > __INT_MAX__)
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 void	print_stderror(void)
@@ -68,26 +68,26 @@ void	print_stderror(void)
 	char	*str;
 
 	str = "Error:	Invalid arguments\n"
-		"Usage: ./philo number_of_philosophers time_to_die"
-		"time_to_eat time_to_sleep"
-		"[number_of_times_each_philosopher_must_eat]\n"
-		"All arguments must be positive integers\n"
-		"Example: ./philo 5 800 200 200\n";
+			"Usage: ./philo number_of_philosophers time_to_die"
+			"time_to_eat time_to_sleep"
+			"[number_of_times_each_philosopher_must_eat]\n"
+			"All arguments must be positive integers\n"
+			"Example: ./philo 5 800 200 200\n";
 	write(STDERR_FILENO, str, 215);
 }
 
-int check_args(int argc, char **argv)
+int	check_args(int argc, char **argv)
 {
-    int flag_error;
+	int flag_error;
 
-    flag_error = 1;
-    if(argc != 5 && argc != 6)
-        flag_error = 0;
-    else if(is_all_digit(argv) == 0)
-        flag_error = 0;
-   else if(negative_numbers(argv) == 0)
-        flag_error = 0;
-    if(flag_error == 0)
-        print_stderror();
-    return(flag_error);
+	flag_error = 1;
+	if (argc != 5 && argc != 6)
+		flag_error = 0;
+	else if (is_all_digit(argv) == 0)
+		flag_error = 0;
+	else if (limit_numbers(argv) == 0)
+		flag_error = 0;
+	if (flag_error == 0)
+		print_stderror();
+	return (flag_error);
 }
