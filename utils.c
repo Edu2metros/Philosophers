@@ -6,7 +6,7 @@
 /*   By: eddos-sa <eddos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 11:58:51 by eddos-sa          #+#    #+#             */
-/*   Updated: 2024/04/04 14:05:54 by eddos-sa         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:32:52 by eddos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,15 @@ t_data **control_struct(void)
 void print_instance(t_data *data, int id, char *msg)
 {
     long time;
+	pthread_mutex_lock(&data->died);
     if (data->flag_die == 1)
+	{
+		pthread_mutex_unlock(&data->died);
         return;
+	}
     time = get_time() - data->time_init;
-    printf("%ld %d %s\n", time, id, msg);
-}
-
-void fill_info_data(t_data *data, char **argv)
-{
-    data->number_philos = ft_atoi(argv[1]) + 1;
-    data->time_die = ft_atoi(argv[2]);
-    data->time_eat = ft_atoi(argv[3]);
-    data->time_sleep = ft_atoi(argv[4]);
-    if (argv[5] != NULL)
-        data->number_philos_eat = ft_atoi(argv[5]);
-    else
-        data->number_philos_eat = -1;
-    data->flag_die = 0;
-    data->time_init = get_time();
+    printf("%ld %d %s\n", time, id + 1, msg);
+	pthread_mutex_unlock(&data->died);
 }
 
 int	ft_atoi(const char *str)

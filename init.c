@@ -6,7 +6,7 @@
 /*   By: eddos-sa <eddos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:36:21 by eddos-sa          #+#    #+#             */
-/*   Updated: 2024/04/04 15:39:03 by eddos-sa         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:43:08 by eddos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,23 @@ t_data	*init(char **argv)
 	fill_info_data(data, argv);
 	init_philo_struct(data);
 	forks_init(data);
+	time_eat_init(data->philo, data->number_philos);
 	*control_struct() = data;
 	return (data);
+}
+
+void fill_info_data(t_data *data, char **argv)
+{
+    data->number_philos = ft_atoi(argv[1]);
+    data->time_die = ft_atoi(argv[2]);
+    data->time_eat = ft_atoi(argv[3]);
+    data->time_sleep = ft_atoi(argv[4]);
+    if (argv[5] != NULL)
+        data->number_philos_eat = ft_atoi(argv[5]);
+    else
+        data->number_philos_eat = -1;
+    data->flag_die = 0;
+    data->time_init = get_time();
 }
 
 void	init_philo_struct(t_data *data)
@@ -36,34 +51,6 @@ void	init_philo_struct(t_data *data)
 		data->philo[i].last_time_eat = 0;
 		i++;
 	}
-}
-void	ft_bzero(void *s, size_t n)
-{
-	unsigned char	*c;
-	size_t			mem;
-
-	c = (unsigned char *)s;
-	mem = 0;
-	while (mem < n)
-	{
-		c[mem] = 0;
-		mem++;
-	}
-}
-
-void	*ft_calloc(size_t nitems, size_t size)
-{
-	int		*p;
-	size_t	overflow;
-
-	overflow = nitems * size;
-	if (nitems != 0 && (overflow / nitems) != size)
-		return (NULL);
-	p = malloc(nitems * size);
-	if (p == NULL)
-		return (p);
-	ft_bzero(p, size * nitems);
-	return (p);
 }
 
 void forks_init(t_data *data)
@@ -81,5 +68,17 @@ void forks_init(t_data *data)
         pthread_mutex_init(&data->fork_m[i], NULL);
         i++;
     }
+	pthread_mutex_init(&data->died, NULL);
+}
+
+void time_eat_init(t_philo *philo, int total_philos)
+{
+	int i;
+	i = 0;
+	while (i < total_philos)
+	{
+		pthread_mutex_init(&philo[i].time_eat, NULL);
+		i++;
+	}
 }
 

@@ -6,7 +6,7 @@ src := main.c check_args.c utils.c init.c
 obj := $(src:%.c=$(OBJ_DIR)%.o)
 
 CC = cc
-FLAGS = -g3 -pthread
+FLAGS = -g3 -pthread #-fsanitize=thread
 CFLAGS =
 
 all: $(NAME)
@@ -18,8 +18,8 @@ $(OBJ_DIR)%.o: %.c
 $(NAME): $(obj)
 	$(CC) $(FLAGS) $^ -o $@
 
-# helgrind: re
-# 	clear; valgrind --tool=helgrind -q ./$(NAME) 4 310 200 100
+helgrind: re
+	 clear; valgrind --tool=helgrind -q ./$(NAME) 4 310 200 100
 
 test1: re
 	./$(NAME) 1 800 200 200

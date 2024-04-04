@@ -9,6 +9,7 @@
 
 typedef struct s_philos
 {
+	pthread_mutex_t time_eat;
 	long			last_time_eat;
 	int				philo_id;
 }					t_philo;
@@ -26,6 +27,7 @@ typedef struct s_data
 	long			time_init;
 	t_philo			*philo;
 	pthread_mutex_t	*fork_m;
+	pthread_mutex_t	died;
 }					t_data;
 
 int					ft_atoi(const char *str);
@@ -40,5 +42,6 @@ void				fill_info_data(t_data *data, char **argv);
 t_data				*init(char **argv);
 void				init_philo_struct(t_data *data);
 void				forks_init(t_data *data);
+void time_eat_init(t_philo *philo, int total_philos);
 
 #endif
