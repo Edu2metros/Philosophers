@@ -6,7 +6,7 @@
 /*   By: eddos-sa <eddos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:15:41 by eddos-sa          #+#    #+#             */
-/*   Updated: 2024/04/06 18:15:56 by eddos-sa         ###   ########.fr       */
+/*   Updated: 2024/04/06 18:43:50 by eddos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void grab_forks(t_philo *philo, t_data *data)
 {
+    printf("entrou1\n");
 	sem_wait(data->forks);
+    printf("entrou2\n");
 	sem_wait(data->forks);
 	print_instance(data, philo->id, "has taken a fork");
 }
