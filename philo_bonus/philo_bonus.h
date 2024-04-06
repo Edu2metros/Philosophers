@@ -6,7 +6,7 @@
 /*   By: eddos-sa <eddos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 15:07:58 by eddos-sa          #+#    #+#             */
-/*   Updated: 2024/04/05 17:13:03 by eddos-sa         ###   ########.fr       */
+/*   Updated: 2024/04/06 18:35:54 by eddos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,22 @@ typedef struct s_data
 	sem_t	*forks;
 	int		id;
 	long	time_init;
+	int		flag_eat_enough;
 	t_philo	*philo;
 }			t_data;
 
-int			check_args(int argc, char **argv);
-t_data		*init(char **argv);
+void big_brother(t_philo *philo, t_data *data);
+int	check_args(int argc, char **argv);
+t_data	*init(char **argv);
+void init_fork_philo(t_data *data);
+void philosophers(char **argv);
+void rotine_philo(t_philo *philo, t_data *data);
+void grab_forks(t_philo *philo, t_data *data);
+void drop_forks(t_data *data);
+void wait_and_check(t_data *data, long wait);
+long get_time(void);
+void print_instance(t_data *data, int id, char *str);
+int	current_status_philo(t_data *data);
+int	ft_atoi(const char *str);
 
 #endif

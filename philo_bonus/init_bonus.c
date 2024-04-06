@@ -6,11 +6,19 @@
 /*   By: eddos-sa <eddos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 15:20:32 by eddos-sa          #+#    #+#             */
-/*   Updated: 2024/04/05 17:13:36 by eddos-sa         ###   ########.fr       */
+/*   Updated: 2024/04/06 17:21:13 by eddos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+
+void init_fork_philo(t_data *data)
+{
+	int i;
+	i = 0;
+	while(i < data->number_philos)
+		data->philo[i++].pid = fork();
+}
 
 static void	init_philo_struct(t_data *data)
 {
