@@ -6,7 +6,7 @@
 /*   By: eddos-sa <eddos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:59:26 by eddos-sa          #+#    #+#             */
-/*   Updated: 2024/04/05 16:20:19 by eddos-sa         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:18:33 by eddos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	philosophers(char **argv)
 		pthread_create(&thread_id[i], NULL, routine, &philo_id[i]);
 		i++;
 	}
-	pthread_join(thread_big_brother, NULL); //phread_detach
+	pthread_join(thread_big_brother, NULL);
 	
 	
 	finish(data, thread_id);

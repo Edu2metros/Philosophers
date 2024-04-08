@@ -6,7 +6,7 @@ src := main.c check_args.c utils.c init.c rotine.c rotine_utils.c big_brother.c 
 obj := $(src:%.c=$(OBJ_DIR)%.o)
 
 CC = cc
-FLAGS = -g3 -pthread -Wall -Wextra -Werror
+FLAGS = -g3 -pthread -Wall -Wextra -Werror 
 CFLAGS =
 
 all: $(NAME)
@@ -19,7 +19,7 @@ $(NAME): $(obj)
 	$(CC) $(FLAGS) $^ -o $@
 
 helgrind: re
-	 clear; valgrind --tool=helgrind ./$(NAME) 4 410 200 200
+	 clear; valgrind --tool=helgrind ./$(NAME) 4 310 200 100
 
 test1: re
 	./$(NAME) 1 800 200 200
