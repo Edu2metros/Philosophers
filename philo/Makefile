@@ -6,7 +6,7 @@ src := main.c check_args.c utils.c init.c rotine.c rotine_utils.c big_brother.c 
 obj := $(src:%.c=$(OBJ_DIR)%.o)
 
 CC = cc
-FLAGS = -g3 -pthread -Wall -Wextra -Werror 
+FLAGS = -g3 -pthread -Wall -Wextra -Werror
 CFLAGS =
 
 all: $(NAME)

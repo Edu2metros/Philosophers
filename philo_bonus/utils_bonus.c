@@ -6,7 +6,7 @@
 /*   By: eddos-sa <eddos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:20:12 by eddos-sa          #+#    #+#             */
-/*   Updated: 2024/04/08 12:52:07 by eddos-sa         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:25:08 by eddos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ long	get_time(void)
 	return (milliseconds);
 }
 
-void print_instance(t_data *data, int id, char *str)
+void	print_instance(t_data *data, int id, char *str)
 {
 	long	time;
 

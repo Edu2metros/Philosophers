@@ -6,7 +6,7 @@
 /*   By: eddos-sa <eddos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 15:20:32 by eddos-sa          #+#    #+#             */
-/*   Updated: 2024/04/08 12:20:17 by eddos-sa         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:24:34 by eddos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static void	fill_info_data(t_data *data, char **argv)
 	data->flag_eat_enough = 0;
 	data->flag_die = 0;
 	data->time_init = get_time();
-	data->print = sem_open("print", O_CREAT , 0644, 1);
-	data->forks = sem_open("forks", O_CREAT , 0644, data->number_philos);
+	data->print = sem_open("print", O_CREAT, 0644, 1);
+	data->forks = sem_open("forks", O_CREAT, 0644, data->number_philos);
 }
 
 t_data	*init(char **argv)

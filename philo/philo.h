@@ -6,7 +6,7 @@
 /*   By: eddos-sa <eddos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:59:07 by eddos-sa          #+#    #+#             */
-/*   Updated: 2024/04/05 13:59:15 by eddos-sa         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:34:48 by eddos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
+
+# define DIE "\033[1;31m💀 died 💀\033[0m"
 
 typedef struct s_philos
 {

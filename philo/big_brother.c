@@ -6,7 +6,7 @@
 /*   By: eddos-sa <eddos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:28:27 by eddos-sa          #+#    #+#             */
-/*   Updated: 2024/04/05 14:37:07 by eddos-sa         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:35:14 by eddos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	philo_dead(t_philo *philo, t_data *data)
 	}
 	if (die >= data->time_die)
 	{
-		print_instance(data, philo->philo_id, "died");
+		print_instance(data, philo->philo_id, DIE);
 		pthread_mutex_lock(&data->died);
 		data->flag_die = 1;
 		pthread_mutex_unlock(&philo->time_eat);

@@ -6,7 +6,7 @@ src := big_brother_bonus.c check_args_bonus.c init_bonus.c main_bonus.c philosop
 obj := $(src:%.c=$(OBJ_DIR)%.o)
 
 CC = cc
-FLAGS = 
+FLAGS = -Wall -Wextra -Werror -pthread
 CFLAGS =
 
 all: $(NAME)
